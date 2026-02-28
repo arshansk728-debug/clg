@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Chatbot - Test Mode</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .chat-container {
+            height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            margin-left: 20%;
+        }
+        .bot-message {
+            background-color: #e9ecef;
+            color: #333;
+            margin-right: 20%;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 College Query Chatbot - Test Mode</h1>
+        <div class="status">
+            ✅ Frontend is working! This is a test version without database requirements.
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot-message">
+                <strong>College Assistant:</strong> Hello! I'm your College Assistant. I can help you with questions about admissions, courses, fees, exams, events, and more. What would you like to know?
+            </div>
+        </div>
+        
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Ask me anything about college..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background-color: #e7f3ff; border-radius: 5px;">
+            <h3>🚀 How to Run the Full Project:</h3>
+            <ol>
+                <li><strong>Install MongoDB:</strong> Download from <a href="https://www.mongodb.com/try/download/community" target="_blank">mongodb.com</a></li>
+                <li><strong>Install Dependencies:</strong> Run <code>npm install</code> in the backend folder</li>
+                <li><strong>Set up Environment:</strong> Copy <code>env.example</code> to <code>.env</code> and configure</li>
+                <li><strong>Start Server:</strong> Run <code>node server.js</code> in the backend folder</li>
+                <li><strong>Open:</strong> <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            </ol>
+            
+            <h3>🐳 Or Use Docker (Easiest):</h3>
+            <ol>
+                <li><strong>Install Docker Desktop</strong> for Windows</li>
+                <li><strong>Run:</strong> <code>docker-compose up -d</code></li>
+                <li><strong>Access:</strong> <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Simulate bot response
+            setTimeout(() => {
+                const responses = [
+                    "That's a great question! In the full version, I would provide detailed information about that topic.",
+                    "I understand you're asking about college information. The full chatbot will have comprehensive FAQ and AI responses!",
+                    "Thanks for your question! The complete system will have intelligent responses powered by AI and extensive FAQ database.",
+                    "Excellent question! The full version includes advanced NLP processing and OpenAI integration for accurate answers.",
+                    "I'd love to help with that! The complete chatbot system has both FAQ matching and AI fallback capabilities."
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const senderName = sender === 'user' ? 'You' : 'College Assistant';
+            messageDiv.innerHTML = `<strong>${senderName}:</strong> ${text}`;
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html>
